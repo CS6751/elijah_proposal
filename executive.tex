@@ -1,0 +1,58 @@
+\documentclass[10pt]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb, comment, natbib}
+\begin{document}
+
+\begin{comment}
+\section{Overview} \label{sec:overview}
+\subsection*{Project Summary}
+\par Clamps and "helping hands" are critical tools for skilled, dextrous work. They hold working items like circuit boards steady in a useful position. Wouldn't it be great if instead of painstakingly placing clamps and hoping they hold just they way you want them to, a robotic arm could take the item from you and hold it? This system would be more flexible and user friendly than a purely mechanical solution, but stronger and more tireless than a human assistant.
+\par The goal of this project is to create a robotic system that:
+\begin{itemize}
+
+
+\item Perceives an item to be held
+\item Accepts human commands to grasp, let go, etc.
+\item Grasps that item while attempting to maintain the item's pose
+\item Exhibits compliant behavior that allows the human to reposition the item 
+\item Exhibits rigid behavior to keep the item steady during work
+\end{itemize}
+\end{comment}
+
+\section*{Executive System}
+The executive system runs state machine collecting all the inputs from each module and returning outputs that are to be used by proper module components.
+\\
+\par \textbf{Inputs} Commands from user interface, information from human intent module of which discrete mode is taken, base/joint angle velocities from motion planner, suggested position and normal vector from perception module
+\\
+\par \textbf{Outputs} Giving feedback to user interface, commanding motion planner, overseeing all the transitions of each mode
+\\
+\par \textbf{Challenges} The problems that executive will tackle:
+\begin{itemize}
+\item Overseeing overall modules exchanging inputs and outputs
+\item Unifying languages from each module
+\item Hybrid automaton design and execution
+\item LTLMoP implementation of verifying and synthesizing system
+\\
+\end{itemize}
+
+
+The system consists of Q (set of discrete modes), X (space of continuous state from motion planner), Init (Q $\times$ X), $f$(Q $\times$ X $\to$ TX: vector field), Inv (invariant set of each mode), E (discrete transitions), G (guards of each transition), R (reset map of transition), semantic for user. The purpose of executive system is to  be responsible for all the transitions. The six defined modes (BaseMove, Stop, ArmMove, Hold, Grasp, Adjust) are to be synthesized via LTLMoP implementation and successful hybrid automaton without failure is desired.
+ 
+ \subsection*{Proposed Plan}
+ \begin{enumerate}
+ \item Identify exact input needed and output produced from each module
+ \item Create library combining gathered information and decide on priority
+ \item Testing on ROS simulation 
+ \item Check for LTLMoP implementation
+ \item Scrutinize failure of robot behavior and improve problematic task
+\end{enumerate} 
+\nocite{*} 
+
+
+\bibliography{executive}
+\bibliographystyle{plain} 
+
+
+
+\end{document}
